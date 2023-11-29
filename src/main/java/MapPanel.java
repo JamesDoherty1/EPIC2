@@ -2,24 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
-
 class MapPanel extends JPanel implements ActionListener {
 
     static final int SCREEN_WIDTH = 825;
     static final int SCREEN_HEIGHT = 725;
     static final int UNIT_SIZE = 25;
-    int personX;
-    int personY;
     boolean running = false;
     Timer timer;
-    Random random;
-    Uber uberTaxi;
-    Uber uberTaxi1;
+    Taxi uberTaxi;
+    Taxi uberTaxi1;
+    Map map;
+    Person person;
 
     MapPanel() {
-        random = new Random();
-        uberTaxi = new Uber();
-        uberTaxi1 = new Uber();
+        map = new Map();
+        uberTaxi = new Uber(map);
+        uberTaxi1 = new Uber(map);
+        person = new Person(map);
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.black);
         this.setFocusable(true);
@@ -27,7 +26,7 @@ class MapPanel extends JPanel implements ActionListener {
     }
 
     public void startGame() {
-        newPerson();
+        person.newPerson();
         running = true;
         timer = new Timer(20, this);
         timer.start();
@@ -35,53 +34,19 @@ class MapPanel extends JPanel implements ActionListener {
 
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        draw(graphics);
-    }
-
-    public void draw(Graphics graphics) {
+        map.draw(graphics);
         if (running) {
-            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-                for (int j = 0; j < SCREEN_WIDTH / UNIT_SIZE; j++) {
-                    graphics.drawRect(j * UNIT_SIZE, i * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
-
-                    // Check if this square should be a road (you can define your own condition)
-                    if (shouldDrawRoad(i, j)) {
-                        graphics.setColor(Color.GRAY); // Set color to grey for roads
-                        graphics.fillRect(j * UNIT_SIZE, i * UNIT_SIZE, UNIT_SIZE, UNIT_SIZE);
-                        graphics.setColor(Color.BLACK); // Reset color to black for other elements
-                    }
-                }
-            }
-
             graphics.setColor(Color.red);
-            graphics.fillOval(personX, personY, UNIT_SIZE, UNIT_SIZE);
-            uberTaxi.setColour(graphics);
-            uberTaxi1.setColour(graphics);
-
+            person.draw(graphics);
+            uberTaxi.draw(graphics);
+            uberTaxi1.draw(graphics);
         } else {
             gameOver(graphics);
         }
     }
 
-    // Define your condition for drawing roads
     static boolean shouldDrawRoad(int row, int col) {
-        // Add your condition here, for example, every second row or column is a road
         return row % 4 == 0 || col % 4 == 0;
-    }
-
-    public void newPerson() {
-        personX = random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
-        personY = random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
-        while (!Taxi.isOnGreySquare(personX, personY)) {
-            personX++;
-            personY++;
-        }
-    }
-
-    public void checkCollisions() {
-        if (!running) {
-            timer.stop();
-        }
     }
 
     public void gameOver(Graphics g) {
@@ -91,9 +56,8 @@ class MapPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (running) {
-            Taxi.move(uberTaxi, SCREEN_WIDTH, SCREEN_HEIGHT, UNIT_SIZE);
-            Taxi.move(uberTaxi1, SCREEN_WIDTH, SCREEN_HEIGHT, UNIT_SIZE);
-            checkCollisions();
+            uberTaxi.move();
+            uberTaxi1.move();
         }
         repaint();
     }
