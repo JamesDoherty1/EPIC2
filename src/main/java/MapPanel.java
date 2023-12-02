@@ -9,15 +9,23 @@ class MapPanel extends JPanel implements ActionListener {
     static final int UNIT_SIZE = 25;
     boolean running = false;
     Timer timer;
-    Taxi uberTaxi;
-    Taxi uberTaxi1;
+    Taxi taxi1;
+    Taxi taxi2;
+    Taxi taxi3;
+    Taxi taxi4;
+    Taxi taxi5;
+    Taxi taxi6;
     Map map;
     Person person;
 
     MapPanel() {
         map = new Map();
-        uberTaxi = new Uber(map);
-        uberTaxi1 = new Uber(map);
+        taxi1 = new Big(map);
+        taxi2 = new Big(map);
+        taxi3 = new Medium(map);
+        taxi4 = new Medium(map);
+        taxi5 = new Small(map);
+        taxi6 = new Small(map);
         person = new Person(map);
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.black);
@@ -38,15 +46,15 @@ class MapPanel extends JPanel implements ActionListener {
         if (running) {
             graphics.setColor(Color.red);
             person.draw(graphics);
-            uberTaxi.draw(graphics);
-            uberTaxi1.draw(graphics);
+            taxi1.draw(graphics);
+            taxi2.draw(graphics);
+            taxi3.draw(graphics);
+            taxi4.draw(graphics);
+            taxi5.draw(graphics);
+            taxi6.draw(graphics);
         } else {
             gameOver(graphics);
         }
-    }
-
-    static boolean shouldDrawRoad(int row, int col) {
-        return row % 4 == 0 || col % 4 == 0;
     }
 
     public void gameOver(Graphics g) {
@@ -56,8 +64,12 @@ class MapPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (running) {
-            uberTaxi.move();
-            uberTaxi1.move();
+            taxi1.move();
+            taxi2.move();
+            taxi3.move();
+            taxi4.move();
+            taxi5.move();
+            taxi6.move();
         }
         repaint();
     }

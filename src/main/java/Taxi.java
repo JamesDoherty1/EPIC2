@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.Random;
 
+
 abstract class Taxi {
     private int taxiX;
     private int taxiY;
@@ -19,23 +20,23 @@ abstract class Taxi {
 
         switch (randomDirection) {
             case 0:  // Up
-                if (newTaxiY - Map.UNIT_SIZE >= 0) {
-                    newTaxiY -= Map.UNIT_SIZE;
+                if (newTaxiY - MapPanel.UNIT_SIZE >= 0) {
+                    newTaxiY -= MapPanel.UNIT_SIZE;
                 }
                 break;
             case 1:  // Down
-                if (newTaxiY + Map.UNIT_SIZE < MapPanel.SCREEN_HEIGHT) {
-                    newTaxiY += Map.UNIT_SIZE;
+                if (newTaxiY + MapPanel.UNIT_SIZE < MapPanel.SCREEN_HEIGHT) {
+                    newTaxiY += MapPanel.UNIT_SIZE;
                 }
                 break;
             case 2:  // Left
-                if (newTaxiX - Map.UNIT_SIZE >= 0) {
-                    newTaxiX -= Map.UNIT_SIZE;
+                if (newTaxiX - MapPanel.UNIT_SIZE >= 0) {
+                    newTaxiX -= MapPanel.UNIT_SIZE;
                 }
                 break;
             case 3:  // Right
-                if (newTaxiX + Map.UNIT_SIZE < MapPanel.SCREEN_WIDTH) {
-                    newTaxiX += Map.UNIT_SIZE;
+                if (newTaxiX + MapPanel.UNIT_SIZE < MapPanel.SCREEN_WIDTH) {
+                    newTaxiX += MapPanel.UNIT_SIZE;
                 }
                 break;
         }
@@ -48,7 +49,7 @@ abstract class Taxi {
 
     void draw(Graphics graphics) {
         graphics.setColor(Color.green);
-        graphics.fillRect(getTaxiX(), getTaxiY(), Map.UNIT_SIZE, Map.UNIT_SIZE);
+        graphics.fillRect(getTaxiX(), getTaxiY(), MapPanel.UNIT_SIZE, MapPanel.UNIT_SIZE);
     }
 
     int getTaxiX() {
@@ -71,3 +72,4 @@ abstract class Taxi {
         return map;
     }
 }
+
