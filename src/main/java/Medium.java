@@ -18,4 +18,3 @@ public class Medium extends Taxi {
         setTaxiY(randomY);
     }
 }
-

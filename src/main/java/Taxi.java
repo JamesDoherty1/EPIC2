@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.Random;
 
-
 abstract class Taxi {
     private int taxiX;
     private int taxiY;
@@ -72,4 +71,3 @@ abstract class Taxi {
         return map;
     }
 }
-

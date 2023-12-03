@@ -1,6 +1,8 @@
+// MapPanel.java
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 class MapPanel extends JPanel implements ActionListener {
@@ -10,13 +12,15 @@ class MapPanel extends JPanel implements ActionListener {
     static final int UNIT_SIZE = 25;
     boolean running = false;
     Timer timer;
-    ArrayList<Taxi> taxis;
+    private ArrayList<Taxi> taxis;
+    private TaxiListener taxiListener;
     Map map;
-    Person person;
+    private Person person;
+    private Phone phone;
 
-    MapPanel() {
-        map = new Map();
-        taxis = new ArrayList<>();
+    MapPanel(Map map, TaxiListener taxiListener) {
+        this.map = map;
+        this.taxis = new ArrayList<>();
         taxis.add(new Big(map));
         taxis.add(new Big(map));
         taxis.add(new Medium(map));
@@ -28,6 +32,9 @@ class MapPanel extends JPanel implements ActionListener {
         this.setBackground(Color.black);
         this.setFocusable(true);
         startGame();
+
+        this.taxiListener = taxiListener;
+        this.phone = new Phone(this); // passing 'this.taxiListener' as TaxiListener
     }
 
     public void startGame() {
@@ -49,10 +56,20 @@ class MapPanel extends JPanel implements ActionListener {
         } else {
             gameOver(graphics);
         }
+
+        graphics.setColor(Color.black); // Reset the color
     }
+
 
     public void gameOver(Graphics g) {
         // Handle game over graphics if needed
+    }
+
+    public void setTaxiListener(TaxiListener listener) {
+        this.taxiListener = listener;
+    }
+    public ArrayList<Taxi> getTaxis() {
+        return taxis;
     }
 
     @Override

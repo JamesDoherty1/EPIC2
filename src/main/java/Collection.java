@@ -4,14 +4,14 @@ public class Collection {
 
     private static ArrayList<Taxi> taxis;
 
-    public static void getClosestTaxi() {
+    public static void getClosestTaxi(ArrayList<Taxi> taxiList) {
         int personX = Person.getPersonX();
         int personY = Person.getPersonY();
 
         Taxi closestTaxi = null;
         int minDistance = Integer.MAX_VALUE;
 
-        for (Taxi taxi : taxis) {
+        for (Taxi taxi : taxiList) {
             int taxiX = taxi.getTaxiX();
             int taxiY = taxi.getTaxiY();
             int distance = calculateDistance(personX, personY, taxiX, taxiY);
@@ -23,15 +23,9 @@ public class Collection {
         }
 
         if (closestTaxi != null) {
-            // Use the getter method to get the X coordinate of the chosen taxi
-            int chosenTaxiX = getChosenTaxiX(closestTaxi);
+            int chosenTaxiX = closestTaxi.getTaxiX();
             System.out.println("X coordinate of the chosen taxi: " + chosenTaxiX);
         }
-    }
-
-    // Getter method to get the X coordinate of a chosen taxi
-    public static int getChosenTaxiX(Taxi taxi) {
-        return taxi.getTaxiX();
     }
 
     public static int calculateDistance(int x1, int y1, int x2, int y2) {
@@ -39,14 +33,14 @@ public class Collection {
     }
 
     public static void main(String[] args) {
-        // Initialize taxis
         taxis = new ArrayList<>();
-        taxis.add(new Big(null)); // Replace 'null' with the actual map instance
-        taxis.add(new Medium(null));
-        taxis.add(new Small(null));
+        taxis.add(new Big(new Map())); // Pass an instance of Map
+        taxis.add(new Medium(new Map()));
+        taxis.add(new Small(new Map()));
 
-        // Example of getting the X coordinate of the first taxi
-        int firstTaxiX = getChosenTaxiX(taxis.get(0));
+        int firstTaxiX = taxis.get(0).getTaxiX();
         System.out.println("X coordinate of the first taxi: " + firstTaxiX);
+
+        getClosestTaxi(taxis);
     }
 }
