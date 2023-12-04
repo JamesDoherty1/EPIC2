@@ -10,7 +10,7 @@ class MapPanel extends JPanel implements ActionListener {
     static final int SCREEN_WIDTH = 825;
     static final int SCREEN_HEIGHT = 725;
     static final int UNIT_SIZE = 25;
-    boolean running = false;
+    static boolean running = false;
     Timer timer;
     private ArrayList<Taxi> taxis;
     private TaxiListener taxiListener;
@@ -68,6 +68,7 @@ class MapPanel extends JPanel implements ActionListener {
     public void setTaxiListener(TaxiListener listener) {
         this.taxiListener = listener;
     }
+
     public ArrayList<Taxi> getTaxis() {
         return taxis;
     }
@@ -76,9 +77,11 @@ class MapPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (running) {
             for (Taxi taxi : taxis) {
-                taxi.move();
+                if (taxi.shouldMove()) {
+                    taxi.move();
+                }
             }
         }
-        repaint();
+            repaint();
+        }
     }
-}

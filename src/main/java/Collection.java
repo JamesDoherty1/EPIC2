@@ -3,12 +3,15 @@ import java.util.ArrayList;
 public class Collection {
 
     private static ArrayList<Taxi> taxis;
+    private static Taxi closestTaxi;
 
-    public static void getClosestTaxi(ArrayList<Taxi> taxiList) {
+    public static Taxi getClosestTaxi(ArrayList<Taxi> taxiList) {
+        taxis = taxiList;  // Set the class variable
+
         int personX = Person.getPersonX();
         int personY = Person.getPersonY();
 
-        Taxi closestTaxi = null;
+        closestTaxi = null;
         int minDistance = Integer.MAX_VALUE;
 
         for (Taxi taxi : taxiList) {
@@ -23,8 +26,37 @@ public class Collection {
         }
 
         if (closestTaxi != null) {
-            int chosenTaxiX = closestTaxi.getTaxiX();
-            System.out.println("X coordinate of the chosen taxi: " + chosenTaxiX);
+            collectPerson();
+        }
+        return closestTaxi;
+    }
+
+    public static void collectPerson() {
+        for (Taxi taxi : taxis) {
+            closestTaxi.setShouldMove(false);
+        }
+
+        int personX = Person.getPersonX();
+        int personY = Person.getPersonY();
+        int chosenTaxiX = closestTaxi.getTaxiX();
+        int chosenTaxiY = closestTaxi.getTaxiY();
+
+        int UNITSIZE = MapPanel.UNIT_SIZE;
+        int taxiXPlusOne = chosenTaxiX + UNITSIZE;
+        int taxiYPlusOne = chosenTaxiY + UNITSIZE;
+        int temp = 0;
+
+        if (personY > chosenTaxiY) {
+            while (!(Map.isOnGreySquare(taxiXPlusOne, taxiYPlusOne))) {
+                temp = chosenTaxiY + UNITSIZE;
+                chosenTaxiY = temp;
+            }
+        }
+        if (personY < chosenTaxiY) {
+            while (!(Map.isOnGreySquare(taxiXPlusOne, taxiYPlusOne))) {
+                temp = chosenTaxiY - UNITSIZE;
+                chosenTaxiY = temp;
+            }
         }
     }
 
@@ -33,14 +65,7 @@ public class Collection {
     }
 
     public static void main(String[] args) {
-        taxis = new ArrayList<>();
-        taxis.add(new Big(new Map())); // Pass an instance of Map
-        taxis.add(new Medium(new Map()));
-        taxis.add(new Small(new Map()));
-
-        int firstTaxiX = taxis.get(0).getTaxiX();
-        System.out.println("X coordinate of the first taxi: " + firstTaxiX);
-
+        taxis = new ArrayList<>();  // Initialize taxis with appropriate values
         getClosestTaxi(taxis);
     }
 }

@@ -16,7 +16,7 @@ class Map {
         }
     }
 
-    boolean isOnGreySquare(int x, int y) {
+    static boolean isOnGreySquare(int x, int y) {
         int row = y / MapPanel.UNIT_SIZE;
         int col = x / MapPanel.UNIT_SIZE;
         return shouldDrawRoad(row, col);

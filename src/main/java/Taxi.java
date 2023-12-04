@@ -5,6 +5,7 @@ abstract class Taxi {
     private int taxiX;
     private int taxiY;
     private final Map map;
+    private boolean shouldMove = true;
 
     Taxi(Map map) {
         this.map = map;
@@ -50,6 +51,13 @@ abstract class Taxi {
         graphics.setColor(Color.green);
         graphics.fillRect(getTaxiX(), getTaxiY(), MapPanel.UNIT_SIZE, MapPanel.UNIT_SIZE);
     }
+    void setShouldMove(boolean shouldMove) {
+        this.shouldMove = shouldMove;
+    }
+    boolean shouldMove() {
+        return shouldMove;
+    }
+
 
     int getTaxiX() {
         return taxiX;

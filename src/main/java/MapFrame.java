@@ -24,7 +24,6 @@ public class MapFrame extends JFrame implements TaxiListener {
 
     @Override
     public void onCollectPressed() {
-        // Implement the logic to handle the "Collect Me" button press
         Collection.getClosestTaxi(mapPanel.getTaxis());
     }
 }
