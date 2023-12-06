@@ -11,7 +11,7 @@ class MapPanel extends JPanel implements ActionListener {
     static final int SCREEN_HEIGHT = 725;
     static final int UNIT_SIZE = 25;
     static boolean running = false;
-    Timer timer;
+    static Timer timer;
     private ArrayList<Taxi> taxis;
     private TaxiListener taxiListener;
     Map map;
@@ -72,6 +72,7 @@ class MapPanel extends JPanel implements ActionListener {
     public ArrayList<Taxi> getTaxis() {
         return taxis;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
