@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+
+// TaxiApp class representing the main functionality of the application
 class TaxiApp {
     private JTextField locationField;
     private JTextArea resultArea;
@@ -18,11 +20,13 @@ class TaxiApp {
     private JPanel panel;
     private JFrame parentFrame;
 
+    // Constructor for the TaxiApp class
     public TaxiApp(JFrame parentFrame) {
         this.parentFrame = parentFrame;
-        initComponents();
+        initComponents(); // Initialize GUI components
     }
 
+    // Method to initialize the GUI components
     private void initComponents() {
         locationField = new JTextField();
         resultArea = new JTextArea();
@@ -33,7 +37,7 @@ class TaxiApp {
         findTaxisButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                findTaxis();
+                findTaxis(); // Call method to find available taxis
             }
         });
 
@@ -74,6 +78,7 @@ class TaxiApp {
         panel.add(findTaxisButton, location);
     }
 
+    // Method to read driver information from a file
     private List<Driver> readDriversFromFile(String filePath) {
         List<Driver> drivers = new ArrayList<>();
         try (InputStream inputStream = getClass().getResourceAsStream(filePath);
@@ -96,6 +101,7 @@ class TaxiApp {
         return drivers;
     }
 
+    // Method to initiate the process of finding available taxis
     private void findTaxis() {
         String location = locationField.getText().trim();
         String destination = destinationField.getText().trim();
@@ -127,23 +133,28 @@ class TaxiApp {
         }
     }
 
+    // Method to display an error message to the user
     private void displayErrorMessage(String message) {
         JOptionPane.showMessageDialog(parentFrame, message, "Error", JOptionPane.ERROR_MESSAGE);
         locationField.setForeground(Color.RED);
         destinationField.setForeground(Color.RED);
     }
 
+    // Method to display a message to the user
     private void displayMessage(String message) {
         JOptionPane.showMessageDialog(parentFrame, message, "Message", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    // Method to get the main panel of the TaxiApp
     public JPanel getPanel() {
         return panel;
     }
 
+    // Inner class representing an image panel for the background
     static class ImagePanel extends JPanel {
         private BufferedImage backgroundImage;
 
+        // Constructor for the ImagePanel
         public ImagePanel(String imagePath, JFrame parentFrame) {
             try {
                 this.backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePath)));
@@ -152,6 +163,7 @@ class TaxiApp {
             }
         }
 
+        // Method to paint the background image
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -161,5 +173,3 @@ class TaxiApp {
         }
     }
 }
-
-
