@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Collection {
@@ -62,10 +60,13 @@ public class Collection {
             }
             checkUpOrDown(personX, personY, UNITSIZE);
         }
-        if (Map.isOnGreySquare(closestTaxi.getTaxiX(), (closestTaxi.getTaxiY() + UNITSIZE))) {
+        else if(Map.isOnGreySquare(closestTaxi.getTaxiX(), (closestTaxi.getTaxiY() + UNITSIZE))) {
             while (!(Map.isOnGreySquare((closestTaxi.getTaxiX() + UNITSIZE), closestTaxi.getTaxiY()))) {
                 delayAndMove(() -> closestTaxi.setTaxiY(closestTaxi.getTaxiY() + UNITSIZE));
             }
+            checkUpOrDown(personX, personY, UNITSIZE);
+        }
+        else{
             checkUpOrDown(personX, personY, UNITSIZE);
         }
     }
