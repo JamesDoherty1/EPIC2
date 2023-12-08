@@ -13,7 +13,7 @@ class MapPanel extends JPanel implements ActionListener {
     static boolean running = false;
     static boolean showPerson = false;
     static Timer timer;
-    private ArrayList<Taxi> taxis;
+    private MyArrayList<Taxi> taxis;
     private TaxiListener taxiListener;
     Map map;
     private Person person;
@@ -21,7 +21,7 @@ class MapPanel extends JPanel implements ActionListener {
 
     MapPanel(Map map, TaxiListener taxiListener) {
         this.map = map;
-        this.taxis = new ArrayList<>();
+        this.taxis = new MyArrayList<>();
         taxis.add(new Big(map));
         taxis.add(new Big(map));
         taxis.add(new Medium(map));
@@ -72,7 +72,7 @@ class MapPanel extends JPanel implements ActionListener {
         this.taxiListener = listener;
     }
 
-    public ArrayList<Taxi> getTaxis() {
+    public MyArrayList<Taxi> getTaxis() {
         return taxis;
     }
     public static void setShowPerson(boolean showPerson) {

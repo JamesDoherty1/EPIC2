@@ -3,13 +3,13 @@ import java.util.ArrayList;
 
 public class Collection {
 
-    private static ArrayList<Taxi> taxis;
+    private static MyArrayList<Taxi> taxis;
     private static Taxi closestTaxi;
     static boolean collected;
     static int destinationX = Person.getPersonX();
     static int destinationY = Person.getPersonY();
 
-    public static Taxi getClosestTaxi(ArrayList<Taxi> taxiList, String colour) {
+    public static Taxi getClosestTaxi(MyArrayList<Taxi> taxiList, String colour) {
         collected = false;
         taxis = taxiList;  // Set the class variable
 
@@ -176,6 +176,6 @@ public class Collection {
 
     public static void main(String[] args) {
 
-        taxis = new ArrayList<>();  // Initialize taxis with appropriate values
+        taxis = new MyArrayList<>();  // Initialize taxis with appropriate values
     }
 }
