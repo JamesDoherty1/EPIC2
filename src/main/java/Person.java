@@ -30,7 +30,12 @@ class Person {
 
     public static int getPersonY() {
         return personY;
-
+    }
+    public static void setPersonX(int newPersonX){
+        personX = newPersonX;
+    }
+    public static void setPersonY(int newPersonY){
+        personY = newPersonY;
     }
 }
 

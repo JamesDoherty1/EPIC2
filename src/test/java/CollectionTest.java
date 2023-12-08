@@ -36,7 +36,7 @@ class CollectionTest {
         when(taxi3.getMap()).thenReturn(mockMap);
 
         // Test the getClosestTaxi method
-        Taxi closestTaxi = Collection.getClosestTaxi(taxiList);
+        Taxi closestTaxi = Collection.getClosestTaxi(taxiList, "red");
 
         // Verify that the closest taxi is correctly determined based on the mock coordinates
         assertEquals(taxi2, closestTaxi);

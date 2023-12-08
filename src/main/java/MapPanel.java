@@ -11,6 +11,7 @@ class MapPanel extends JPanel implements ActionListener {
     static final int SCREEN_HEIGHT = 725;
     static final int UNIT_SIZE = 25;
     static boolean running = false;
+    static boolean showPerson = false;
     static Timer timer;
     private ArrayList<Taxi> taxis;
     private TaxiListener taxiListener;
@@ -40,6 +41,7 @@ class MapPanel extends JPanel implements ActionListener {
     public void startGame() {
         person.newPerson();
         running = true;
+        showPerson = true;
         timer = new Timer(20, this);
         timer.start();
     }
@@ -47,13 +49,14 @@ class MapPanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         map.draw(graphics);
-        if (running) {
+        if (running && showPerson) {
             graphics.setColor(Color.red);
             person.draw(graphics);
+        }
             for (Taxi taxi : taxis) {
                 taxi.draw(graphics);
-            }
-        } else {
+        }
+            if(!running) {
             gameOver(graphics);
         }
 
@@ -71,6 +74,9 @@ class MapPanel extends JPanel implements ActionListener {
 
     public ArrayList<Taxi> getTaxis() {
         return taxis;
+    }
+    public static void setShowPerson(boolean showPerson) {
+        MapPanel.showPerson = showPerson;
     }
 
 
