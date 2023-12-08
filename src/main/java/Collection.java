@@ -162,6 +162,7 @@ public class Collection {
             Person.setPersonY(closestTaxi.getTaxiY());
             MapPanel.setShowPerson(true);
             closestTaxi.setShouldMove(true);
+            System.out.println("Dropped off");
         }
         collected = false;
         moveToIntersection(destinationX, destinationY, UNITSIZE, "colour");
