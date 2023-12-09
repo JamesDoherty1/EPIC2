@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Phone extends JFrame implements ActionListener {
 
@@ -9,7 +13,7 @@ public class Phone extends JFrame implements ActionListener {
     private ImageIcon backgroundImage = new ImageIcon("src/main/java/TaxiApp.png");
     private JLabel backgroundLabel = new JLabel(backgroundImage);
     private JLabel question;
-    private JTextArea driverInfo;
+    private static JTextArea driverInfo;
     private JButton redButton;
     private JButton blueButton;
     private JButton yellowButton;
@@ -28,7 +32,7 @@ public class Phone extends JFrame implements ActionListener {
         question.setBackground(Color.BLACK);
         question.setFont(new Font("Fugaz One", Font.PLAIN, 20));
 
-        driverInfo = new JTextArea(" \n Name: John \n \n Car Type: Volkswagen  \n \n License Plate: 123  \n \n Rating: 3 stars");
+        driverInfo = new JTextArea();
         this.add(driverInfo);
         driverInfo.setEditable(false);
         driverInfo.setBounds(60, 200, 300, 300);
@@ -59,6 +63,23 @@ public class Phone extends JFrame implements ActionListener {
         yellowButton.addActionListener(this);
 
         setVisible(true);
+    }
+    public static void displayInfo(int index){
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/options.txt"))) {
+            String line;
+            ArrayList<String> lines = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+
+            // Check if the index is within bounds
+            if (index >= 0 && index < lines.size()) {
+                String info = lines.get(index);
+                driverInfo.setText(info);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
