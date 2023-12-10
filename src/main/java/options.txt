@@ -1,6 +1,6 @@
-John,Range Rover,ABC123,4.5
-James,Ferrari,XYZ789,4.8
-Emma,Chevorlette,DEF456,4.2
-Chris,Ford Fiesta,FEF456,4.4
-Mary, Volkswagen, CE234, 3.1
-Michael, Toyota, KY987, 5.0
+John,Range Rover,ABC123,4.5, big
+James,Ferrari,XYZ789,4.8, big
+Emma,Chevorlette,DEF456,4.2, medium
+Chris,Ford Fiesta,FEF456,4.4, medium
+Mary, Volkswagen, CE234, 3.1, small
+Michael, Toyota, KY987, 5.0, small

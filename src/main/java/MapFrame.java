@@ -18,10 +18,6 @@ public class MapFrame extends JFrame implements TaxiListener {
         mapPanel.setTaxiListener(this);
     }
 
-    public MapPanel getMapPanel() {
-        return mapPanel;
-    }
-
     @Override
     public void onCollectPressed() {
     }

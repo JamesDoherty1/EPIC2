@@ -1,49 +1,90 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import java.util.ArrayList;
+
+import java.time.Period;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class CollectionTest {
 
-    @Test
-    void testGetClosestTaxi() {
-        // Create a list of taxis for testing
-        MyArrayList<Taxi> taxiList = new MyArrayList<>();
-        Taxi taxi1 = mock(Taxi.class);
-        Taxi taxi2 = mock(Taxi.class);
-        Taxi taxi3 = mock(Taxi.class);
-        taxiList.add(taxi1);
-        taxiList.add(taxi2);
-        taxiList.add(taxi3);
+    private MyArrayList<Taxi> taxiList;
+    private Taxi closestTaxi;
 
-        // Mock Person class
-        Person person = mock(Person.class);
-        when(person.getPersonX()).thenReturn(3);  // Set a mock person X coordinate
-        when(person.getPersonY()).thenReturn(3);  // Set a mock person Y coordinate
+    @BeforeEach
+    void setUp() {
+        taxiList = new MyArrayList<>();
+        taxiList.add(new Big(new Map()));
+        taxiList.add(new Big(new Map()));
+        taxiList.add(new Medium(new Map()));
+        taxiList.add(new Medium(new Map()));
+        taxiList.add(new Small(new Map()));
+        taxiList.add(new Small(new Map()));
 
-        // Mock Map class
-        Map mockMap = mock(Map.class);
-        when(taxi1.getTaxiX()).thenReturn(0);
-        when(taxi1.getTaxiY()).thenReturn(0);
-        when(taxi2.getTaxiX()).thenReturn(5);
-        when(taxi2.getTaxiY()).thenReturn(5);
-        when(taxi3.getTaxiX()).thenReturn(10);
-        when(taxi3.getTaxiY()).thenReturn(10);
-        when(taxi1.getMap()).thenReturn(mockMap);
-        when(taxi2.getMap()).thenReturn(mockMap);
-        when(taxi3.getMap()).thenReturn(mockMap);
-
-        // Test the getClosestTaxi method
-        Taxi closestTaxi = Collection.getClosestTaxi(taxiList, "red");
-
-        // Verify that the closest taxi is correctly determined based on the mock coordinates
-        assertEquals(taxi2, closestTaxi);
+        closestTaxi = new Big(new Map()); // Assuming Big is the closest initially
     }
 
+    @Test
+    void testGetClosestTaxi() {
+        Person.setPersonX(2);
+        Person.setPersonY(2);
 
-    // Add more tests for other methods in the Collection class
+        Taxi result = Collection.getClosestTaxi(taxiList, "color", "size");
 
-    // ...
+        assertEquals(closestTaxi, result);
+    }
+
+    @Test
+    void testStopRandomMovement() {
+        Person.setPersonX(2);
+        Person.setPersonY(2);
+
+        assertDoesNotThrow(() -> Collection.stopRandomMovement("color"));
+    }
+
+    @Test
+    void testMoveToIntersection() {
+        // It's challenging to directly test the method with SwingWorker.
+        // Consider refactoring for better testability or use more advanced testing techniques.
+    }
+
+    @Test
+    void testCheckUpOrDown() {
+        int destinationX = 5;
+        int destinationY = 5;
+        int UNITSIZE = 1;
+        String color = "color";
+
+        Collection.checkUpOrDown(destinationX, destinationY, UNITSIZE, color);
+
+        // Add assertions as needed
+    }
+
+    @Test
+    void testMoveToX() {
+        int destinationX = 5;
+        int destinationY = 5;
+        int UNITSIZE = 1;
+        String color = "color";
+
+        Collection.moveToX(destinationX, destinationY, UNITSIZE, color);
+
+        // Add assertions as needed
+    }
+
+    // Add more tests as needed for other methods
+
+    @Test
+    void testCalculateDistance() {
+        int x1 = 0, y1 = 0, x2 = 3, y2 = 4;
+        int expectedDistance = 5;
+
+        int result = Collection.calculateDistance(x1, y1, x2, y2);
+
+        assertEquals(expectedDistance, result);
+    }
+
+    @Test
+    void testMain() {
+        // Add tests for the main method if applicable
+    }
 }
