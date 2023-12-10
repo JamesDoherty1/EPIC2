@@ -10,7 +10,7 @@ class CollectionTest {
     @Test
     void testGetClosestTaxi() {
         // Create a list of taxis for testing
-        ArrayList<Taxi> taxiList = new ArrayList<>();
+        MyArrayList<Taxi> taxiList = new MyArrayList<>();
         Taxi taxi1 = mock(Taxi.class);
         Taxi taxi2 = mock(Taxi.class);
         Taxi taxi3 = mock(Taxi.class);
