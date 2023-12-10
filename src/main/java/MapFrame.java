@@ -12,7 +12,7 @@ public class MapFrame extends JFrame implements TaxiListener {
         this.setResizable(false);
         this.pack();
         this.setVisible(true);
-        this.setLocationRelativeTo(null);
+        this.setLocation(200, 30);
 
         // Set this MapFrame as the TaxiListener for the mapPanel
         mapPanel.setTaxiListener(this);

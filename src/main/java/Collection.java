@@ -8,6 +8,7 @@ public class Collection {
     static boolean collected;
     static int destinationX = Person.getPersonX();
     static int destinationY = Person.getPersonY();
+    static int index;
 
     public static Taxi getClosestTaxi(MyArrayList<Taxi> taxiList, String colour) {
         collected = false;
@@ -16,7 +17,8 @@ public class Collection {
         closestTaxi = null;
         int minDistance = Integer.MAX_VALUE;
 
-        for (Taxi taxi : taxiList) {
+        for (int i = 0; i < taxiList.size(); i++) {
+            Taxi taxi = taxiList.get(i);
             int taxiX = taxi.getTaxiX();
             int taxiY = taxi.getTaxiY();
             int distance = calculateDistance(destinationX, destinationY, taxiX, taxiY);
@@ -24,7 +26,11 @@ public class Collection {
             if (distance < minDistance) {
                 minDistance = distance;
                 closestTaxi = taxi;
+                index = i;
             }
+        }
+        if (!collected){
+            Phone.displayInfo(index);
         }
 
         if (closestTaxi != null) {
