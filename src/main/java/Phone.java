@@ -64,7 +64,8 @@ public class Phone extends JFrame implements ActionListener {
 
         setVisible(true);
     }
-    public static void displayInfo(int index){
+
+    public static void displayInfo(int index) {
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/options.txt"))) {
             String line;
             ArrayList<String> lines = new ArrayList<>();
@@ -74,8 +75,10 @@ public class Phone extends JFrame implements ActionListener {
 
             // Check if the index is within bounds
             if (index >= 0 && index < lines.size()) {
-                String info = lines.get(index);
-                driverInfo.setText(info);
+                String[] info = lines.get(index).split(",");
+                String formattedInfo = String.format("\nName: %s\n\nCar Type: %s\n\nNumber Plate: %s\n\nRating: %s",
+                        info[0], info[1], info[2], info[3]);
+                driverInfo.setText(formattedInfo);
             }
         } catch (IOException e) {
             e.printStackTrace();
