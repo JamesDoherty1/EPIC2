@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class Collection {
 
@@ -136,7 +135,6 @@ public class Collection {
     }
 
     public static void collected(int destinationX, int destinationY, int UNITSIZE, String colour) {
-        System.out.println("Collected");
         MapPanel.setShowPerson(false);
             collected = true;
             moveToIntersection(destinationX, destinationY, UNITSIZE, colour);
@@ -168,7 +166,6 @@ public class Collection {
             Person.setPersonY(closestTaxi.getTaxiY());
             MapPanel.setShowPerson(true);
             closestTaxi.setShouldMove(true);
-            System.out.println("Dropped off");
         }
         collected = false;
         moveToIntersection(destinationX, destinationY, UNITSIZE, "colour");
