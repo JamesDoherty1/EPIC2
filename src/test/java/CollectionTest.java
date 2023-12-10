@@ -28,7 +28,7 @@ class CollectionTest {
         Person.setPersonX(2);
         Person.setPersonY(2);
 
-        Taxi result = Collection.getClosestTaxi(taxiList, "color");
+        Taxi result = Collection.getClosestTaxi(taxiList, "color", "size");
 
         assertEquals(closestTaxi, result);
     }

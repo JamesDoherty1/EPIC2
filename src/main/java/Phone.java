@@ -18,6 +18,9 @@ public class Phone extends JFrame implements ActionListener {
     private JButton blueButton;
     private JButton yellowButton;
 
+    private boolean selectingColor = true;
+    private String selectedColor;
+
     public Phone(MapPanel mapPanel) {
         this.mapPanel = mapPanel;
         this.add(backgroundLabel);
@@ -58,8 +61,8 @@ public class Phone extends JFrame implements ActionListener {
         yellowButton = new JButton("Yellow");
         this.add(yellowButton);
         yellowButton.setBounds(100, 500, 200, 80);
-        yellowButton.setFont(new Font("Fugaz One", Font.PLAIN, 40));
         yellowButton.setBackground(Color.YELLOW);
+        yellowButton.setFont(new Font("Fugaz One", Font.PLAIN, 40));
         yellowButton.addActionListener(this);
 
         setVisible(true);
@@ -76,8 +79,8 @@ public class Phone extends JFrame implements ActionListener {
             // Check if the index is within bounds
             if (index >= 0 && index < lines.size()) {
                 String[] info = lines.get(index).split(",");
-                String formattedInfo = String.format("\nName: %s\n\nCar Type: %s\n\nNumber Plate: %s\n\nRating: %s",
-                        info[0], info[1], info[2], info[3]);
+                String formattedInfo = String.format("\nName: %s\n\nCar Type: %s\n\nNumber Plate: %s\n\nRating: %s\n\nCar Size: %s",
+                        info[0], info[1], info[2], info[3], info[4]);
                 driverInfo.setText(formattedInfo);
             }
         } catch (IOException e) {
@@ -89,23 +92,24 @@ public class Phone extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String buttonLabel = e.getActionCommand();
 
-        switch (buttonLabel) {
-            case "Red":
-                Collection.getClosestTaxi(mapPanel.getTaxis(), "red");
-                break;
-            case "Blue":
-                Collection.getClosestTaxi(mapPanel.getTaxis(), "blue");
-                break;
-            case "Yellow":
-                Collection.getClosestTaxi(mapPanel.getTaxis(), "yellow");
-                break;
-        }
+        if (selectingColor) {
+            // User is selecting color
+            selectedColor = buttonLabel.toLowerCase();
+            redButton.setText("Small");
+            blueButton.setText("Medium");
+            yellowButton.setText("Big");
+            selectingColor = false;
+        } else {
+            // User is selecting size, call Collection.getClosestTaxi with color and size
+            String selectedSize = buttonLabel.toLowerCase();
+            Collection.getClosestTaxi(mapPanel.getTaxis(), selectedColor, selectedSize);
 
-        // Update UI after button press
-        question.setText("Drivers Information");
-        redButton.setVisible(false);
-        blueButton.setVisible(false);
-        yellowButton.setVisible(false);
-        driverInfo.setVisible(true);
+            // Update UI after button press
+            question.setText("Drivers Information");
+            redButton.setVisible(false);
+            blueButton.setVisible(false);
+            yellowButton.setVisible(false);
+            driverInfo.setVisible(true);
+        }
     }
 }

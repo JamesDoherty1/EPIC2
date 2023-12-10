@@ -9,7 +9,7 @@ public class Collection {
     static int destinationY = Person.getPersonY();
     static int index;
 
-    public static Taxi getClosestTaxi(MyArrayList<Taxi> taxiList, String colour) {
+    public static Taxi getClosestTaxi(MyArrayList<Taxi> taxiList, String colour, String size) {
         collected = false;
         taxis = taxiList;  // Set the class variable
 
@@ -22,19 +22,46 @@ public class Collection {
             int taxiY = taxi.getTaxiY();
             int distance = calculateDistance(destinationX, destinationY, taxiX, taxiY);
 
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestTaxi = taxi;
-                index = i;
+            if (taxi instanceof Big && size.equals("big")) {
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestTaxi = taxi;
+                    index = i;
+                }
+            } else if (taxi instanceof Medium && size.equals("medium")) {
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestTaxi = taxi;
+                    index = i;
+                }
+            } else if (taxi instanceof Small && size.equals("small")) {
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestTaxi = taxi;
+                    index = i;
+                }
             }
         }
-        if (!collected){
+
+        if (!collected) {
             Phone.displayInfo(index);
         }
 
         if (closestTaxi != null) {
             stopRandomMovement(colour);
+
+            // Check the type of taxi
+            if (closestTaxi instanceof Big) {
+                System.out.println("Found a Big taxi");
+            } else if (closestTaxi instanceof Medium) {
+                System.out.println("Found a Medium taxi");
+            } else if (closestTaxi instanceof Small) {
+                System.out.println("Found a Small taxi");
+            } else {
+                System.out.println("Found an unknown type of taxi");
+            }
         }
+
         return closestTaxi;
     }
 
