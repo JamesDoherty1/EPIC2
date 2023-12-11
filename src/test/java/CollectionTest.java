@@ -19,19 +19,35 @@ public class CollectionTest {
 
     @Test
     public void testAddToMap() {
-        // Add your test logic here
-        // Example:
-        // collection.addToMap(taxiList.get(0));
-        // assertTrue(collection.getMap().contains(taxiList.get(0)));
+        int initialAmount = 0;
+        int finalAmount = 0;
+        for(int i = 0; i < taxiList.size(); i++){
+            initialAmount++;
+        }
+        taxiList.add(new Big(new Map()));
+        for(int i = 0; i < taxiList.size(); i++){
+            finalAmount++;
+        }
+        assertEquals("Adding one element should increase the size by 1", initialAmount + 1, finalAmount);
+    }
+
+    @Test
+    public void isOnMap() {
+        Taxi taxi = (Taxi) taxiList.get(0);
+        int X = taxi.getTaxiX();
+        int Y = taxi.getTaxiY();
+        int height = MapPanel.SCREEN_HEIGHT;
+        int width = MapPanel.SCREEN_WIDTH;
+
+        assertTrue("X coordinate is out of bounds", X >= 0 && X <= width);
+
+        assertTrue("Y coordinate is out of bounds", Y >= 0 && Y <= height);
     }
 
     @Test
     public void testMoveVehicle() {
         // Arrange
-        Map map = null;
-        MyArrayList taxis = new MyArrayList();
-        taxis.add(new Big(map));
-        Taxi taxi = (Taxi) taxis.get(0);
+        Taxi taxi = (Taxi) taxiList.get(0);
 
         // Act
         taxi.move();
@@ -42,10 +58,19 @@ public class CollectionTest {
 
     @Test
     public void testRemoveVehicle() {
-        // Add your test logic here
-        // Example:
-        // collection.removeFromMap(taxiList.get(0));
-        // assertFalse(collection.getMap().contains(taxiList.get(0)));
+        {
+            int initialAmount = 0;
+            int finalAmount = 0;
+            for(int i = 0; i < taxiList.size(); i++){
+                initialAmount++;
+            }
+            taxiList.remove(0);
+            for(int i = 0; i < taxiList.size(); i++){
+                finalAmount++;
+            }
+            assertEquals("Adding one element should increase the size by 1", initialAmount - 1, finalAmount);
+        }
+
     }
 
     @Test
