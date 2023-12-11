@@ -74,8 +74,4 @@ abstract class Taxi {
     void setTaxiY(int taxiY) {
         this.taxiY = taxiY;
     }
-
-    Map getMap() {
-        return map;
-    }
 }
