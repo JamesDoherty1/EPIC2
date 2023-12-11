@@ -17,6 +17,9 @@ public class Phone extends JFrame implements ActionListener {
     private JButton redButton;
     private JButton blueButton;
     private JButton yellowButton;
+    private JButton depositButton; // New button for deposit
+    private JLabel amountLabel; // New label to display the current amount
+    private double currentAmount = 0; // Current amount in the user's account
 
     private boolean selectingColor = true;
     private String selectedColor;
@@ -65,7 +68,48 @@ public class Phone extends JFrame implements ActionListener {
         yellowButton.setFont(new Font("Fugaz One", Font.PLAIN, 40));
         yellowButton.addActionListener(this);
 
+        // New deposit button
+        depositButton = new JButton("Deposit");
+        this.add(depositButton);
+        depositButton.setBounds(250, 10, 150, 40);
+        depositButton.setBackground(Color.CYAN);
+        depositButton.setFont(new Font("Fugaz One", Font.PLAIN, 20));
+        depositButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                depositMoney(); // Call method to handle depositing money
+            }
+        });
+
+        // New label to display the current amount
+        amountLabel = new JLabel("$" + currentAmount);
+        this.add(amountLabel);
+        amountLabel.setBounds(250, 50, 150, 40);
+        amountLabel.setBackground(Color.CYAN);
+        amountLabel.setFont(new Font("Fugaz One", Font.PLAIN, 20));
+
         setVisible(true);
+    }
+
+    // Method to handle depositing money
+    private void depositMoney() {
+        // Prompt the user to enter a deposit amount
+        String depositAmountString = JOptionPane.showInputDialog(this, "Enter deposit amount:");
+        try {
+            // Parse the input to a double and update the current amount
+            double depositAmount = Double.parseDouble(depositAmountString);
+            currentAmount += depositAmount;
+            // Update the amount label to display the new amount
+            updateAmountLabel();
+        } catch (NumberFormatException | NullPointerException e) {
+            // Handle invalid input with an error message
+            JOptionPane.showMessageDialog(this, "Invalid input. Please enter a valid amount.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Method to update the amount label with the current amount
+    private void updateAmountLabel() {
+        amountLabel.setText("$" + currentAmount);
     }
 
     public static void displayInfo(int index) {
@@ -85,6 +129,33 @@ public class Phone extends JFrame implements ActionListener {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String buttonLabel = e.getActionCommand();
+
+        if (selectingColor) {
+            // User is selecting color
+            selectedColor = buttonLabel.toLowerCase();
+            redButton.setText("Small");
+            blueButton.setText("Medium");
+            yellowButton.setText("Big");
+            selectingColor = false;
+        } else {
+            // User is selecting size, call Collection.getClosestTaxi with color and size
+            String selectedSize = buttonLabel.toLowerCase();
+            Collection.getClosestTaxi(mapPanel.getTaxis(), selectedColor, selectedSize);
+
+            // Update UI after button press
+            question.setText("Drivers Information");
+            redButton.setVisible(false);
+            blueButton.setVisible(false);
+            yellowButton.setVisible(false);
+            depositButton.setVisible(false);
+            amountLabel.setVisible(false);
+            driverInfo.setVisible(true);
         }
     }
 
@@ -152,6 +223,22 @@ public class Phone extends JFrame implements ActionListener {
         this.yellowButton = yellowButton;
     }
 
+    public JButton getDepositButton() {
+        return depositButton;
+    }
+
+    public void setDepositButton(JButton depositButton) {
+        this.depositButton = depositButton;
+    }
+
+    public JLabel getAmountLabel() {
+        return amountLabel;
+    }
+
+    public void setAmountLabel(JLabel amountLabel) {
+        this.amountLabel = amountLabel;
+    }
+
     public boolean isSelectingColor() {
         return selectingColor;
     }
@@ -168,30 +255,11 @@ public class Phone extends JFrame implements ActionListener {
         this.selectedColor = selectedColor;
     }
 
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String buttonLabel = e.getActionCommand();
-
-        if (selectingColor) {
-            // User is selecting color
-            selectedColor = buttonLabel.toLowerCase();
-            redButton.setText("Small");
-            blueButton.setText("Medium");
-            yellowButton.setText("Big");
-            selectingColor = false;
-        } else {
-            // User is selecting size, call Collection.getClosestTaxi with color and size
-            String selectedSize = buttonLabel.toLowerCase();
-            Collection.getClosestTaxi(mapPanel.getTaxis(), selectedColor, selectedSize);
-
-            // Update UI after button press
-            question.setText("Drivers Information");
-            redButton.setVisible(false);
-            blueButton.setVisible(false);
-            yellowButton.setVisible(false);
-            driverInfo.setVisible(true);
-        }
+    public double getCurrentAmount() {
+        return currentAmount;
     }
 
+    public void setCurrentAmount(double currentAmount) {
+        this.currentAmount = currentAmount;
+    }
 }
