@@ -77,7 +77,7 @@ public class Phone extends JFrame implements ActionListener {
         depositButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                depositMoney(); // Call method to handle depositing money
+                depositMoney(50.0); // Call method to handle depositing money
             }
         });
 
@@ -92,7 +92,7 @@ public class Phone extends JFrame implements ActionListener {
     }
 
     // Method to handle depositing money
-    private void depositMoney() {
+    public void depositMoney(double v) {
         // Prompt the user to enter a deposit amount
         String depositAmountString = JOptionPane.showInputDialog(this, "Enter deposit amount:");
         try {
@@ -108,7 +108,7 @@ public class Phone extends JFrame implements ActionListener {
     }
 
     // Method to update the amount label with the current amount
-    private void updateAmountLabel() {
+    void updateAmountLabel() {
         amountLabel.setText("$" + currentAmount);
     }
 
