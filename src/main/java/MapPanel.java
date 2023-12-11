@@ -38,6 +38,10 @@ class MapPanel extends JPanel implements ActionListener {
         this.phone = new Phone(this); // passing 'this.taxiListener' as TaxiListener
     }
 
+    public MapPanel() {
+
+    }
+
     public void startGame() {
         person.newPerson();
         running = true;
