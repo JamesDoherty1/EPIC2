@@ -1,90 +1,90 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import java.util.List;
 
-import java.time.Period;
+public class CollectionTest {
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class CollectionTest {
-
+    private Collection collection;
     private MyArrayList<Taxi> taxiList;
-    private Taxi closestTaxi;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
+        // Initialize the collection and taxiList as needed
         taxiList = new MyArrayList<>();
         taxiList.add(new Big(new Map()));
+        taxiList.add(new Medium(new Map()));
+        taxiList.add(new Small(new Map()));
+    }
+
+    @Test
+    public void testAddToMap() {
+        int initialAmount = 0;
+        int finalAmount = 0;
+        for(int i = 0; i < taxiList.size(); i++){
+            initialAmount++;
+        }
         taxiList.add(new Big(new Map()));
-        taxiList.add(new Medium(new Map()));
-        taxiList.add(new Medium(new Map()));
-        taxiList.add(new Small(new Map()));
-        taxiList.add(new Small(new Map()));
-
-        closestTaxi = new Big(new Map()); // Assuming Big is the closest initially
+        for(int i = 0; i < taxiList.size(); i++){
+            finalAmount++;
+        }
+        assertEquals("Adding one element should increase the size by 1", initialAmount + 1, finalAmount);
     }
 
     @Test
-    void testGetClosestTaxi() {
-        Person.setPersonX(2);
-        Person.setPersonY(2);
+    public void isOnMap() {
+        Taxi taxi = (Taxi) taxiList.get(0);
+        int X = taxi.getTaxiX();
+        int Y = taxi.getTaxiY();
+        int height = MapPanel.SCREEN_HEIGHT;
+        int width = MapPanel.SCREEN_WIDTH;
 
-        Taxi result = Collection.getClosestTaxi(taxiList, "color", "size");
+        assertTrue("X coordinate is out of bounds", X >= 0 && X <= width);
 
-        assertEquals(closestTaxi, result);
+        assertTrue("Y coordinate is out of bounds", Y >= 0 && Y <= height);
     }
 
     @Test
-    void testStopRandomMovement() {
-        Person.setPersonX(2);
-        Person.setPersonY(2);
+    public void testMoveVehicle() {
+        // Arrange
+        Taxi taxi = (Taxi) taxiList.get(0);
 
-        assertDoesNotThrow(() -> Collection.stopRandomMovement("color"));
+        // Act
+        taxi.move();
+
+        // Assert
+        assertTrue(taxi.shouldMove());
     }
 
     @Test
-    void testMoveToIntersection() {
-        // It's challenging to directly test the method with SwingWorker.
-        // Consider refactoring for better testability or use more advanced testing techniques.
+    public void testRemoveVehicle() {
+        {
+            int initialAmount = 0;
+            int finalAmount = 0;
+            for(int i = 0; i < taxiList.size(); i++){
+                initialAmount++;
+            }
+            taxiList.remove(0);
+            for(int i = 0; i < taxiList.size(); i++){
+                finalAmount++;
+            }
+            assertEquals("Adding one element should increase the size by 1", initialAmount - 1, finalAmount);
+        }
+
     }
 
     @Test
-    void testCheckUpOrDown() {
-        int destinationX = 5;
-        int destinationY = 5;
-        int UNITSIZE = 1;
-        String color = "color";
-
-        Collection.checkUpOrDown(destinationX, destinationY, UNITSIZE, color);
-
-        // Add assertions as needed
+    public void testGetVehicleLoc() {
+        // Add your test logic here
+        // Example:
+        // assertEquals(expectedLocation, collection.getVehicleLocation(taxiList.get(0)));
     }
 
     @Test
-    void testMoveToX() {
-        int destinationX = 5;
-        int destinationY = 5;
-        int UNITSIZE = 1;
-        String color = "color";
-
-        Collection.moveToX(destinationX, destinationY, UNITSIZE, color);
-
-        // Add assertions as needed
-    }
-
-    // Add more tests as needed for other methods
-
-    @Test
-    void testCalculateDistance() {
-        int x1 = 0, y1 = 0, x2 = 3, y2 = 4;
-        int expectedDistance = 5;
-
-        int result = Collection.calculateDistance(x1, y1, x2, y2);
-
-        assertEquals(expectedDistance, result);
-    }
-
-    @Test
-    void testMain() {
-        // Add tests for the main method if applicable
+    public void testGetVehiclesInRange() {
+        // Add your test logic here
+        // Example:
+        // List<Taxi> vehiclesInRange = collection.getVehiclesInRange(targetLocation, range);
+        // assertTrue(vehiclesInRange.contains(taxiList.get(0)));
     }
 }

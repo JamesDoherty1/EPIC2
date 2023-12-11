@@ -50,16 +50,6 @@ public class Collection {
         if (closestTaxi != null) {
             stopRandomMovement(colour);
 
-            // Check the type of taxi
-            if (closestTaxi instanceof Big) {
-                System.out.println("Found a Big taxi");
-            } else if (closestTaxi instanceof Medium) {
-                System.out.println("Found a Medium taxi");
-            } else if (closestTaxi instanceof Small) {
-                System.out.println("Found a Small taxi");
-            } else {
-                System.out.println("Found an unknown type of taxi");
-            }
         }
 
         return closestTaxi;

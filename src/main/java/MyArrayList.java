@@ -27,6 +27,16 @@ public class MyArrayList<T> implements Iterable<T> {
             return size;
         }
 
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+
+        // Shift elements to the left to remove the element at the specified index
+        System.arraycopy(array, index + 1, array, index, size - index - 1);
+        array[--size] = null; // Set the last element to null
+    }
+
         private void ensureCapacity() {
             if (size == array.length) {
                 int newCapacity = array.length * 2;
