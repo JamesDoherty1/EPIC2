@@ -23,7 +23,6 @@ public class Phone extends JFrame implements ActionListener {
 
     private boolean selectingColor = true;
     private String selectedColor;
-
     public Phone(MapPanel mapPanel) {
         this.mapPanel = mapPanel;
         this.add(backgroundLabel);
@@ -124,7 +123,7 @@ public class Phone extends JFrame implements ActionListener {
             if (index >= 0 && index < lines.size()) {
                 String[] info = lines.get(index).split(",");
                 String formattedInfo = String.format("\nName: %s\n\nCar Type: %s\n\nNumber Plate: %s\n\nRating: %s\n\nCar Size: %s\n\nPrice: $%s",
-                        info[0], info[1], info[2], info[3], info[4], info[5]); // Added info[5] for price
+                        info[0], info[1], info[2], info[3], info[4], info[5]);
                 driverInfo.setText(formattedInfo);
             }
         } catch (IOException e) {
@@ -132,12 +131,14 @@ public class Phone extends JFrame implements ActionListener {
         }
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String buttonLabel = e.getActionCommand();
 
         if (selectingColor) {
             // User is selecting color
+            question.setText("What size Taxi?");
             selectedColor = buttonLabel.toLowerCase();
             redButton.setText("Small");
             blueButton.setText("Medium");
@@ -153,8 +154,6 @@ public class Phone extends JFrame implements ActionListener {
             redButton.setVisible(false);
             blueButton.setVisible(false);
             yellowButton.setVisible(false);
-            depositButton.setVisible(false);
-            amountLabel.setVisible(false);
             driverInfo.setVisible(true);
         }
     }
