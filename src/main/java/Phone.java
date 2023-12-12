@@ -41,7 +41,7 @@ public class Phone extends JFrame implements ActionListener {
         driverInfo = new JTextArea();
         this.add(driverInfo);
         driverInfo.setEditable(false);
-        driverInfo.setBounds(60, 200, 300, 300);
+        driverInfo.setBounds(60, 200, 300, 350);
         driverInfo.setBackground(Color.GREEN);
         driverInfo.setFont(new Font("Fugaz One", Font.PLAIN, 20));
         driverInfo.setVisible(false);
@@ -123,8 +123,8 @@ public class Phone extends JFrame implements ActionListener {
             // Check if the index is within bounds
             if (index >= 0 && index < lines.size()) {
                 String[] info = lines.get(index).split(",");
-                String formattedInfo = String.format("\nName: %s\n\nCar Type: %s\n\nNumber Plate: %s\n\nRating: %s\n\nCar Size: %s",
-                        info[0], info[1], info[2], info[3], info[4]);
+                String formattedInfo = String.format("\nName: %s\n\nCar Type: %s\n\nNumber Plate: %s\n\nRating: %s\n\nCar Size: %s\n\nPrice: $%s",
+                        info[0], info[1], info[2], info[3], info[4], info[5]); // Added info[5] for price
                 driverInfo.setText(formattedInfo);
             }
         } catch (IOException e) {

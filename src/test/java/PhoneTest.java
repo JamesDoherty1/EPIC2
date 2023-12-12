@@ -38,7 +38,6 @@ public class PhoneTest {
         // After update, the amount label text should be "$100.0"
         assertEquals("$100.0", phone.getAmountLabel().getText());
     }
-
     @Test
     public void testDisplayInfo() {
         // Simulate calling displayInfo with index 0
