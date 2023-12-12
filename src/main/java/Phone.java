@@ -132,12 +132,14 @@ public class Phone extends JFrame implements ActionListener {
         }
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String buttonLabel = e.getActionCommand();
 
         if (selectingColor) {
             // User is selecting color
+            question.setText("What size Taxi?");
             selectedColor = buttonLabel.toLowerCase();
             redButton.setText("Small");
             blueButton.setText("Medium");
