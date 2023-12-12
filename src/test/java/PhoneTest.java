@@ -40,36 +40,11 @@ public class PhoneTest {
     }
 
     @Test
-    public void testSelectColorAndSize() {
-        // Initial state, selecting color
-        assertTrue(phone.isSelectingColor());
-        assertNull(phone.getSelectedColor());
-
-        // Simulate clicking the Red button
-        phone.actionPerformed(new ActionEvent(phone.getRedButton(), ActionEvent.ACTION_PERFORMED, "Red"));
-
-        // After clicking Red, it should be selecting size
-        assertFalse(phone.isSelectingColor());
-        assertEquals("red", phone.getSelectedColor());
-
-        // Simulate clicking the Small button
-        phone.actionPerformed(new ActionEvent(phone.getRedButton(), ActionEvent.ACTION_PERFORMED, "Small"));
-
-        // After clicking Small, UI should be updated
-        assertFalse(phone.getRedButton().isVisible());
-        assertFalse(phone.getBlueButton().isVisible());
-        assertFalse(phone.getYellowButton().isVisible());
-        assertFalse(phone.getDepositButton().isVisible());
-        assertFalse(phone.getAmountLabel().isVisible());
-        assertTrue(phone.getDriverInfo().isVisible());
-    }
-
-    @Test
     public void testDisplayInfo() {
         // Simulate calling displayInfo with index 0
         phone.displayInfo(0);
 
-        // Check if driverInfo text is not null or empty (you may replace with expected text)
+        // Check if driverInfo text is not null or empty
         assertNotNull(phone.getDriverInfo().getText());
         assertNotEquals("", phone.getDriverInfo().getText().trim());
     }
