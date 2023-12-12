@@ -1,35 +1,57 @@
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class Collection {
 
-    private static ArrayList<Taxi> taxis;
+    private static MyArrayList<Taxi> taxis;
     private static Taxi closestTaxi;
     static boolean collected;
     static int destinationX = Person.getPersonX();
     static int destinationY = Person.getPersonY();
+    static int index;
 
-    public static Taxi getClosestTaxi(ArrayList<Taxi> taxiList, String colour) {
+    public static Taxi getClosestTaxi(MyArrayList<Taxi> taxiList, String colour, String size) {
         collected = false;
         taxis = taxiList;  // Set the class variable
 
         closestTaxi = null;
         int minDistance = Integer.MAX_VALUE;
 
-        for (Taxi taxi : taxiList) {
+        for (int i = 0; i < taxiList.size(); i++) {
+            Taxi taxi = taxiList.get(i);
             int taxiX = taxi.getTaxiX();
             int taxiY = taxi.getTaxiY();
             int distance = calculateDistance(destinationX, destinationY, taxiX, taxiY);
 
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestTaxi = taxi;
+            if (taxi instanceof Big && size.equals("big")) {
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestTaxi = taxi;
+                    index = i;
+                }
+            } else if (taxi instanceof Medium && size.equals("medium")) {
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestTaxi = taxi;
+                    index = i;
+                }
+            } else if (taxi instanceof Small && size.equals("small")) {
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestTaxi = taxi;
+                    index = i;
+                }
             }
+        }
+
+        if (!collected) {
+            Phone.displayInfo(index);
         }
 
         if (closestTaxi != null) {
             stopRandomMovement(colour);
+
         }
+
         return closestTaxi;
     }
 
@@ -130,7 +152,6 @@ public class Collection {
     }
 
     public static void collected(int destinationX, int destinationY, int UNITSIZE, String colour) {
-        System.out.println("Collected");
         MapPanel.setShowPerson(false);
             collected = true;
             moveToIntersection(destinationX, destinationY, UNITSIZE, colour);
@@ -175,6 +196,6 @@ public class Collection {
 
     public static void main(String[] args) {
 
-        taxis = new ArrayList<>();  // Initialize taxis with appropriate values
+        taxis = new MyArrayList<>();  // Initialize taxis with appropriate values
     }
 }
