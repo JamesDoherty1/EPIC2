@@ -17,13 +17,13 @@ public class Phone extends JFrame implements ActionListener {
     private JButton redButton;
     private JButton blueButton;
     private JButton yellowButton;
-    private JButton depositButton; // New button for deposit
-    private JLabel amountLabel; // New label to display the current amount
-    private double currentAmount = 0; // Current amount in the user's account
+    private JButton depositButton;
+    private static JLabel amountLabel;
+    private static double currentAmount = 0;
+    private static double taxiCost = 0;
 
     private boolean selectingColor = true;
     private String selectedColor;
-
     public Phone(MapPanel mapPanel) {
         this.mapPanel = mapPanel;
         this.add(backgroundLabel);
@@ -98,6 +98,7 @@ public class Phone extends JFrame implements ActionListener {
         try {
             // Parse the input to a double and update the current amount
             double depositAmount = Double.parseDouble(depositAmountString);
+            amountLabel.setBounds(250, 50, 150, 40);
             currentAmount += depositAmount;
             // Update the amount label to display the new amount
             updateAmountLabel();
@@ -124,7 +125,11 @@ public class Phone extends JFrame implements ActionListener {
             if (index >= 0 && index < lines.size()) {
                 String[] info = lines.get(index).split(",");
                 String formattedInfo = String.format("\nName: %s\n\nCar Type: %s\n\nNumber Plate: %s\n\nRating: %s\n\nCar Size: %s\n\nPrice: $%s",
-                        info[0], info[1], info[2], info[3], info[4], info[5]); // Added info[5] for price
+                        info[0], info[1], info[2], info[3], info[4], info[5]);
+                taxiCost = Double.parseDouble(info[5]);
+                amountLabel.setText(String.format("%.2f", currentAmount - taxiCost));
+                currentAmount = Double.parseDouble(amountLabel.getText());
+
                 driverInfo.setText(formattedInfo);
             }
         } catch (IOException e) {
@@ -132,30 +137,37 @@ public class Phone extends JFrame implements ActionListener {
         }
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        String buttonLabel = e.getActionCommand();
+            String buttonLabel = e.getActionCommand();
 
-        if (selectingColor) {
-            // User is selecting color
-            selectedColor = buttonLabel.toLowerCase();
-            redButton.setText("Small");
-            blueButton.setText("Medium");
-            yellowButton.setText("Big");
-            selectingColor = false;
-        } else {
-            // User is selecting size, call Collection.getClosestTaxi with color and size
-            String selectedSize = buttonLabel.toLowerCase();
-            Collection.getClosestTaxi(mapPanel.getTaxis(), selectedColor, selectedSize);
+            if (selectingColor) {
+                // User is selecting color
+                question.setText("What size Taxi?");
+                selectedColor = buttonLabel.toLowerCase();
+                redButton.setText("Small");
+                blueButton.setText("Medium");
+                yellowButton.setText("Big");
+                selectingColor = false;
 
-            // Update UI after button press
-            question.setText("Drivers Information");
-            redButton.setVisible(false);
-            blueButton.setVisible(false);
-            yellowButton.setVisible(false);
-            depositButton.setVisible(false);
-            amountLabel.setVisible(false);
-            driverInfo.setVisible(true);
+            } else {
+                if (currentAmount > taxiCost) {
+                // User is selecting size, call Collection.getClosestTaxi with color and size
+                String selectedSize = buttonLabel.toLowerCase();
+                Collection.getClosestTaxi(mapPanel.getTaxis(), selectedColor, selectedSize);
+
+                // Update UI after button press
+                question.setText("Drivers Information");
+                redButton.setVisible(false);
+                blueButton.setVisible(false);
+                yellowButton.setVisible(false);
+                driverInfo.setVisible(true);
+            }
+                else {
+                    amountLabel.setBounds(200, 50, 250, 40);
+                    amountLabel.setText("Insufficient Funds");
+                }
         }
     }
 
