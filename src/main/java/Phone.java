@@ -171,104 +171,12 @@ public class Phone extends JFrame implements ActionListener {
         }
     }
 
-    public MapPanel getMapPanel() {
-        return mapPanel;
-    }
-
-    public void setMapPanel(MapPanel mapPanel) {
-        this.mapPanel = mapPanel;
-    }
-
-    public ImageIcon getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    public void setBackgroundImage(ImageIcon backgroundImage) {
-        this.backgroundImage = backgroundImage;
-    }
-
-    public JLabel getBackgroundLabel() {
-        return backgroundLabel;
-    }
-
-    public void setBackgroundLabel(JLabel backgroundLabel) {
-        this.backgroundLabel = backgroundLabel;
-    }
-
-    public JLabel getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(JLabel question) {
-        this.question = question;
-    }
-
     public static JTextArea getDriverInfo() {
         return driverInfo;
     }
 
-    public static void setDriverInfo(JTextArea driverInfo) {
-        Phone.driverInfo = driverInfo;
-    }
-
-    public JButton getRedButton() {
-        return redButton;
-    }
-
-    public void setRedButton(JButton redButton) {
-        this.redButton = redButton;
-    }
-
-    public JButton getBlueButton() {
-        return blueButton;
-    }
-
-    public void setBlueButton(JButton blueButton) {
-        this.blueButton = blueButton;
-    }
-
-    public JButton getYellowButton() {
-        return yellowButton;
-    }
-
-    public void setYellowButton(JButton yellowButton) {
-        this.yellowButton = yellowButton;
-    }
-
-    public JButton getDepositButton() {
-        return depositButton;
-    }
-
-    public void setDepositButton(JButton depositButton) {
-        this.depositButton = depositButton;
-    }
-
     public JLabel getAmountLabel() {
         return amountLabel;
-    }
-
-    public void setAmountLabel(JLabel amountLabel) {
-        this.amountLabel = amountLabel;
-    }
-
-    public boolean isSelectingColor() {
-        return selectingColor;
-    }
-
-    public void setSelectingColor(boolean selectingColor) {
-        this.selectingColor = selectingColor;
-    }
-
-    public String getSelectedColor() {
-        return selectedColor;
-    }
-
-    public void setSelectedColor(String selectedColor) {
-        this.selectedColor = selectedColor;
-    }
-
-    public double getCurrentAmount() {
-        return currentAmount;
     }
 
     public void setCurrentAmount(double currentAmount) {
