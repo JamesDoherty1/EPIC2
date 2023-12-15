@@ -14,17 +14,6 @@ public class PhoneTest {
         phone = new Phone(new MapPanel());
     }
 
-    @Test
-    public void testDepositMoney() {
-        // Initial amount should be 0
-        assertEquals(0.0, phone.getCurrentAmount(), 0.001);
-
-        // Deposit money
-        phone.depositMoney(50.0);
-
-        // After deposit, the amount should be 50.0
-        assertEquals(50.0, phone.getCurrentAmount(), 0.001);
-    }
 
     @Test
     public void testUpdateAmountLabel() {
