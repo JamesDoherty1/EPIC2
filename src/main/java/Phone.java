@@ -24,7 +24,6 @@ public class Phone extends JFrame implements ActionListener {
 
     private boolean selectingColor = true;
     private String selectedColor;
-
     public Phone(MapPanel mapPanel) {
         this.mapPanel = mapPanel;
         this.add(backgroundLabel);
@@ -130,6 +129,7 @@ public class Phone extends JFrame implements ActionListener {
                 taxiCost = Double.parseDouble(info[5]);
                 amountLabel.setText(String.format("%.2f", currentAmount - taxiCost));
                 currentAmount = Double.parseDouble(amountLabel.getText());
+
                 driverInfo.setText(formattedInfo);
             }
         } catch (IOException e) {
